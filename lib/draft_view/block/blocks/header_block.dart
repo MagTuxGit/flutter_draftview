@@ -101,7 +101,8 @@ class HeaderBlock extends BaseBlock {
   }
 
   @override
-  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+  InlineSpan render(BuildContext context,
+      {List<InlineSpan>? children, TextStyle? baseStyle}) {
     return TextSpan(text: "$textContent", style: renderStyle(context));
   }
 }

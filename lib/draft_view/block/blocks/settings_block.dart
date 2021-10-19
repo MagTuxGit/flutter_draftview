@@ -153,7 +153,8 @@ class PostSettingsBlock extends BaseBlock {
       );
 
   @override
-  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+  InlineSpan render(BuildContext context,
+      {List<InlineSpan>? children, TextStyle? baseStyle}) {
     late _DetailSettings _detailSettings;
     var textStyle = renderStyle(context).copyWith(
       color: Colors.orange,

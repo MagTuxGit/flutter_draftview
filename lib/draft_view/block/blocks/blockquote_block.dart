@@ -37,8 +37,8 @@ class BlockQuoteBlock extends BaseBlock {
       );
 
   @override
-  @override
-  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+  InlineSpan render(BuildContext context,
+      {List<InlineSpan>? children, TextStyle? baseStyle}) {
     var style = renderStyle(context);
     var text = children?.length  == 0 ? textContent : null;
 

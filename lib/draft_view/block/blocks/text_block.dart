@@ -13,17 +13,18 @@ class TextBlock extends BaseBlock {
     required List<String> entityTypes,
     required String blockType,
   }) : super(
-          depth: depth,
-          start: start,
-          end: end,
-          inlineStyles: inlineStyles,
-          data: data,
-          text: text,
-          entityTypes: entityTypes,
-          blockType: blockType,
-        );
+    depth: depth,
+    start: start,
+    end: end,
+    inlineStyles: inlineStyles,
+    data: data,
+    text: text,
+    entityTypes: entityTypes,
+    blockType: blockType,
+  );
 
-  TextBlock copyWith({BaseBlock? block}) => TextBlock(
+  TextBlock copyWith({BaseBlock? block}) =>
+      TextBlock(
         depth: block?.depth ?? depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
@@ -38,18 +39,19 @@ class TextBlock extends BaseBlock {
 class NewlineBlock extends BaseBlock {
   NewlineBlock()
       : super(
-          depth: 0,
-          start: 0,
-          end: 0,
-          inlineStyles: [],
-          data: {},
-          text: "",
-          entityTypes: [],
-          blockType: "newline",
-        );
+    depth: 0,
+    start: 0,
+    end: 0,
+    inlineStyles: [],
+    data: {},
+    text: "",
+    entityTypes: [],
+    blockType: "newline",
+  );
 
   @override
-  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+  InlineSpan render(BuildContext context,
+      {List<InlineSpan>? children, TextStyle? baseStyle}) {
     return TextSpan(text: "\n\n", style: renderStyle(context));
   }
 }

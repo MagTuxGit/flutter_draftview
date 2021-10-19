@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 class DraftView extends StatefulWidget {
   final Map<String, dynamic> rawDraftData;
   final List<BasePlugin> plugins;
+  final TextStyle? baseStyle;
 
-  const DraftView({Key? key, required this.rawDraftData, required this.plugins})
+  const DraftView(
+      {Key? key, required this.rawDraftData, required this.plugins, this.baseStyle})
       : super(key: key);
 
   @override
@@ -38,7 +40,7 @@ class _DraftViewState extends State<DraftView> {
 
   List<BaseBlock> _convertToBlocks() {
     var converter =
-        Converter(plugins: widget.plugins, draftData: widget.rawDraftData);
+    Converter(plugins: widget.plugins, draftData: widget.rawDraftData);
     return converter.convert();
   }
 
@@ -51,7 +53,9 @@ class _DraftViewState extends State<DraftView> {
 
       var span = curBlock.render(
         context,
-        children: curBlock.children?.map((e) => e.render(context)).toList(),
+        children: curBlock.children?.map((e) =>
+            e.render(context, baseStyle: widget.baseStyle)).toList(),
+        baseStyle: widget.baseStyle,
       );
       spans.add(span);
 

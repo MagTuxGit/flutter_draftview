@@ -307,10 +307,11 @@ class BaseBlock {
   /// Render the current block
   ///
   /// @param [children] List of children
-  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+  InlineSpan render(BuildContext context,
+      {List<InlineSpan>? children, TextStyle? baseStyle}) {
     return TextSpan(
       text: this.textContent,
-      style: renderStyle(context),
+      style: renderStyle(context).merge(baseStyle),
       children: children,
     );
   }
