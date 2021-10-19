@@ -22,10 +22,10 @@ class Converter {
     Map<String, RawDraftEntityKeyStringAny> entityMap = {};
 
     for (var block in this.draftData['blocks']) {
-      var draftBlock = RawDraftContentBlock.fromJson(block);
+      final draftBlock = RawDraftContentBlock.fromJson(block);
       draftBlocks.add(draftBlock);
-      var hasAdded = false;
-      var tmpB = BaseBlock(
+      bool hasAdded = false;
+      final tmpB = BaseBlock(
         depth: draftBlock.depth.toInt(),
         start: 0,
         end: draftBlock.text.length,
@@ -35,7 +35,7 @@ class Converter {
         entityTypes: [],
         blockType: draftBlock.type,
       );
-      for (var plugin in plugins) {
+      for (final plugin in plugins) {
         if (plugin.blockRenderFn(tmpB)?.containsKey(draftBlock.type) ?? false) {
           var b = plugin
               .blockRenderFn(tmpB, shouldWrite: true)![draftBlock.type]!

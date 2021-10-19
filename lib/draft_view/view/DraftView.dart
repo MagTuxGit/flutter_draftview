@@ -24,14 +24,14 @@ class _DraftViewState extends State<DraftView> {
   void initState() {
     super.initState();
     blocks = _convertToBlocks();
-    print(blocks);
   }
 
   @override
   void didUpdateWidget(DraftView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.plugins != widget.plugins ||
-        oldWidget.rawDraftData != widget.rawDraftData) {
+        oldWidget.rawDraftData != widget.rawDraftData ||
+        oldWidget.baseStyle != widget.baseStyle) {
       setState(() {
         blocks = _convertToBlocks();
       });
@@ -39,8 +39,8 @@ class _DraftViewState extends State<DraftView> {
   }
 
   List<BaseBlock> _convertToBlocks() {
-    var converter =
-    Converter(plugins: widget.plugins, draftData: widget.rawDraftData);
+    final converter =
+      Converter(plugins: widget.plugins, draftData: widget.rawDraftData);
     return converter.convert();
   }
 

@@ -51,7 +51,7 @@ class LinkBlock extends BaseBlock {
   @override
   InlineSpan render(BuildContext context,
       {List<InlineSpan>? children, TextStyle? baseStyle}) {
-    GestureRecognizer? recognizer = null;
+    GestureRecognizer? recognizer;
 
     if (data.containsKey('url')) {
       if (data['url'] is String) {
@@ -61,6 +61,7 @@ class LinkBlock extends BaseBlock {
               context: context,
               builder: (c) => LinkCard(
                 link: data['url'],
+                title: data['url'],
               ),
             );
           };
@@ -126,17 +127,19 @@ class LinkCard extends StatelessWidget {
                         )
                       : null,
                   title: Text("${title ?? "No title"}"),
-                  subtitle: Text("${summary ?? ""}"),
+                  subtitle: Text(summary ?? ""),
                   trailing: IconButton(
                     tooltip: "Open in browser",
                     icon: Icon(Icons.launch),
                     onPressed: () async {
                       if (await canLaunch(link)) {
                         await launch(link);
+                        Navigator.pop(context);
                       }
                     },
                   ),
-                )),
+                ),
+            ),
           ),
         ),
         Positioned(
