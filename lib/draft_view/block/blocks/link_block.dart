@@ -40,13 +40,12 @@ class LinkBlock extends BaseBlock {
         blockType: block?.blockType ?? this.blockType,
         children: block?.children ?? children ?? [],
       );
-  @override
-  TextDecoration get decoration => TextDecoration.underline;
+
+  // @override
+  // TextDecoration get decoration => TextDecoration.underline;
 
   @override
-  Color textColor(context) {
-    return Colors.blue;
-  }
+  Color textColor(context) => Colors.blue;
 
   @override
   InlineSpan render(BuildContext context,
@@ -85,7 +84,7 @@ class LinkBlock extends BaseBlock {
       recognizer: recognizer,
       text: "$textContent",
       children: children,
-      style: renderStyle(context),
+      style: renderStyle(context).merge(baseStyle),
     );
   }
 }
