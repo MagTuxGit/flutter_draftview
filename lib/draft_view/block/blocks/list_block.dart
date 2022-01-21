@@ -60,7 +60,7 @@ class ListBlock extends BaseBlock {
     return TextSpan(
       text:
       "${getDepthSpacing()}${isOrderedList ? "$order." : "-"} $textContent\n",
-      style: renderStyle(context),
+      style: renderStyle(context, baseStyle),
     );
   }
 }

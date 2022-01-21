@@ -42,8 +42,8 @@ class HeaderBlock extends BaseBlock {
       );
 
   @override
-  TextStyle renderStyle(BuildContext context) {
-    var prevStyle = super.renderStyle(context);
+  TextStyle renderStyle(BuildContext context, TextStyle? baseStyle) {
+    var prevStyle = super.renderStyle(context, baseStyle);
 
     switch (level) {
       case 1:
@@ -51,7 +51,7 @@ class HeaderBlock extends BaseBlock {
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
-              color: textColor(context),
+              color: textColor(context, baseStyle?.color),
             );
         return textStyle;
 
@@ -60,7 +60,7 @@ class HeaderBlock extends BaseBlock {
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
-              color: textColor(context),
+              color: textColor(context, baseStyle?.color),
             );
 
         return textStyle;
@@ -70,7 +70,7 @@ class HeaderBlock extends BaseBlock {
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
-              color: textColor(context),
+              color: textColor(context, baseStyle?.color),
             );
         return textStyle;
       case 4:
@@ -78,7 +78,7 @@ class HeaderBlock extends BaseBlock {
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
-              color: textColor(context),
+              color: textColor(context, baseStyle?.color),
             );
         return textStyle;
       case 5:
@@ -86,7 +86,7 @@ class HeaderBlock extends BaseBlock {
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
-              color: textColor(context),
+              color: textColor(context, baseStyle?.color),
             );
         return textStyle;
       default:
@@ -94,7 +94,7 @@ class HeaderBlock extends BaseBlock {
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
-              color: textColor(context),
+              color: textColor(context, baseStyle?.color),
             );
         return textStyle;
     }
@@ -103,6 +103,6 @@ class HeaderBlock extends BaseBlock {
   @override
   InlineSpan render(BuildContext context,
       {List<InlineSpan>? children, TextStyle? baseStyle}) {
-    return TextSpan(text: "$textContent", style: renderStyle(context));
+    return TextSpan(text: "$textContent", style: renderStyle(context, baseStyle));
   }
 }

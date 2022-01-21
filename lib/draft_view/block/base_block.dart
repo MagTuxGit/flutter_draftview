@@ -260,8 +260,8 @@ class BaseBlock {
   }
 
   /// get text color
-  Color textColor(context) {
-    var color = Theme.of(context).textTheme.bodyText1!.color!;
+  Color textColor(BuildContext context, Color? baseColor) {
+    var color = baseColor ?? Theme.of(context).textTheme.bodyText1!.color!;
     var style = inlineStyles.firstWhere((element) => element[0] == "#",
         orElse: () => "");
     if (style.isNotEmpty) {
@@ -293,14 +293,14 @@ class BaseBlock {
   }
 
   /// Render style based on the block's type and inline styles
-  TextStyle renderStyle(BuildContext context) {
-    var textStyle = Theme.of(context).textTheme.bodyText1!;
+  TextStyle renderStyle(BuildContext context, TextStyle? baseStyle) {
+    var textStyle = baseStyle ?? Theme.of(context).textTheme.bodyText1!;
 
     return textStyle.copyWith(
       fontWeight: fontWeight,
       fontStyle: fontStyle,
       decoration: decoration,
-      color: textColor(context),
+      color: textColor(context, baseStyle?.color),
     );
   }
 
@@ -311,7 +311,7 @@ class BaseBlock {
       {List<InlineSpan>? children, TextStyle? baseStyle}) {
     return TextSpan(
       text: this.textContent,
-      style: renderStyle(context).merge(baseStyle),
+      style: renderStyle(context, baseStyle),
       children: children,
     );
   }
