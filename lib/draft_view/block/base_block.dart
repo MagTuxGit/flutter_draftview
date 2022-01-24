@@ -272,22 +272,23 @@ class BaseBlock {
   }
 
   /// Get fontweight for each block based on their [inline styles]
-  FontWeight get fontWeight =>
-      this.inlineStyles.contains("BOLD") ? FontWeight.bold : FontWeight.normal;
+  FontWeight? get fontWeight =>
+      this.inlineStyles.contains("BOLD") ? FontWeight.bold : null;
 
   /// Get fontstyle for each block based on their [inline styles]
-  FontStyle get fontStyle => this.inlineStyles.contains("ITALIC")
-      ? FontStyle.italic
-      : FontStyle.normal;
+  FontStyle? get fontStyle =>
+      this.inlineStyles.contains("ITALIC") ? FontStyle.italic : null;
 
   /// Get decoration for each block based on their [inline styles]
-  TextDecoration get decoration {
-    TextDecoration decoration = TextDecoration.none;
+  TextDecoration decoration(TextDecoration? baseDecoration) {
+    TextDecoration decoration = baseDecoration ?? TextDecoration.none;
     if (inlineStyles.contains("UNDERLINE")) {
-      decoration = TextDecoration.combine([decoration, TextDecoration.underline]);
+      decoration =
+          TextDecoration.combine([decoration, TextDecoration.underline]);
     }
     if (inlineStyles.contains("STRIKETHROUGH")) {
-      decoration = TextDecoration.combine([decoration, TextDecoration.lineThrough]);
+      decoration =
+          TextDecoration.combine([decoration, TextDecoration.lineThrough]);
     }
     return decoration;
   }
@@ -299,7 +300,7 @@ class BaseBlock {
     return textStyle.copyWith(
       fontWeight: fontWeight,
       fontStyle: fontStyle,
-      decoration: decoration,
+      decoration: decoration(baseStyle?.decoration),
       color: textColor(context, baseStyle?.color),
     );
   }
