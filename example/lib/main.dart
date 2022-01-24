@@ -1,5 +1,6 @@
-import 'package:example/views/Demo1.dart';
 import 'package:flutter/material.dart';
+
+import 'views/Demo1.dart';
 
 void main() {
   runApp(MyApp());

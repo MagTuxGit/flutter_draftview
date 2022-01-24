@@ -1,7 +1,8 @@
 import 'package:draft_view/draft_view.dart';
-import 'package:example/draft_data.dart';
-import 'package:example/post_settings_data.dart';
 import 'package:flutter/material.dart';
+
+import '../draft_data.dart';
+import '../post_settings_data.dart';
 
 class Demo1 extends StatelessWidget {
   @override

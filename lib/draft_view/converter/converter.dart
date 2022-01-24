@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:draft_view/draft_view/block/blocks/list_block.dart';
 import 'package:draft_view/draft_view/block/blocks/text_block.dart';

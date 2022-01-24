@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';

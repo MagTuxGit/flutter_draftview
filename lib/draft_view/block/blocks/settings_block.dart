@@ -11,15 +11,13 @@ import 'package:flutter/material.dart';
 //     final postSettings = postSettingsFromJson(jsonString);
 //     final detailSettings = detailSettingsFromJson(jsonString);
 
-import 'dart:convert';
-
 /// Post Settings object
 class Settings {
   Settings({
     required this.settings,
   });
 
-  List<_PostSettings> settings;
+  List<_PostSettings>? settings;
 
   Settings copyWith({
     List<_PostSettings>? settings,
@@ -41,7 +39,7 @@ class Settings {
   Map<String, dynamic> toJson() => {
         "settings": settings == null
             ? null
-            : List<dynamic>.from(settings.map((x) => x.toJson())),
+            : List<dynamic>.from(settings!.map((x) => x.toJson())),
       };
 }
 
@@ -51,8 +49,8 @@ class _PostSettings {
     required this.id,
   });
 
-  List<_DetailSettings> detailSettings;
-  String id;
+  List<_DetailSettings>? detailSettings;
+  String? id;
 
   _PostSettings copyWith({
     List<_DetailSettings>? detailSettings,
@@ -74,7 +72,7 @@ class _PostSettings {
   Map<String, dynamic> toJson() => {
         "detailSettings": detailSettings == null
             ? null
-            : List<dynamic>.from(detailSettings.map((x) => x.toJson())),
+            : List<dynamic>.from(detailSettings!.map((x) => x.toJson())),
         "id": id == null ? null : id,
       };
 }
@@ -86,9 +84,9 @@ class _DetailSettings {
     required this.id,
   });
 
-  String description;
-  String name;
-  String id;
+  String? description;
+  String? name;
+  String? id;
 
   _DetailSettings copyWith({
     String? description,
@@ -160,8 +158,8 @@ class PostSettingsBlock extends BaseBlock {
       color: Colors.orange,
     );
 
-    for (var setting in settings.settings) {
-      for (var ds in setting.detailSettings) {
+    for (var setting in settings.settings ?? []) {
+      for (var ds in setting?.detailSettings ?? []) {
         if (ds.id == data['id']) {
           _detailSettings = ds;
         }
