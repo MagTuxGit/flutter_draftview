@@ -43,7 +43,7 @@ class LinkBlock extends BaseBlock {
   // TextDecoration get decoration => TextDecoration.underline;
 
   @override
-  Color textColor(context, Color? baseColor) => Colors.blue;
+  Color textColor(context, Color? baseColor) => Color(0xFF175CFF);
 
   @override
   InlineSpan render(BuildContext context,
