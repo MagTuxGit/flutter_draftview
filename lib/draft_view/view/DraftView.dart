@@ -81,11 +81,33 @@ class _DraftViewState extends State<DraftView> {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-        children: _renderText(),
+    final textAlign = _textAlign();
+    Alignment widgetAlignment;
+    switch (textAlign) {
+      case TextAlign.left:
+      case TextAlign.justify:
+      case TextAlign.start:
+        widgetAlignment = Alignment.centerLeft;
+        break;
+      case TextAlign.right:
+      case TextAlign.end:
+        widgetAlignment = Alignment.centerRight;
+        break;
+      case TextAlign.center:
+        widgetAlignment = Alignment.center;
+        break;
+    }
+
+    /// Align to prevent spans stretch
+    /// If there is a single link span, then it will be clickable along the whole DraftView
+    return Align(
+      alignment: widgetAlignment,
+      child: RichText(
+        text: TextSpan(
+          children: _renderText(),
+        ),
+        textAlign: textAlign,
       ),
-      textAlign: _textAlign(),
     );
   }
 }
