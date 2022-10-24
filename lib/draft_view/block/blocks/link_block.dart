@@ -53,27 +53,35 @@ class LinkBlock extends BaseBlock {
     if (data.containsKey('url')) {
       if (data['url'] is String) {
         recognizer = TapGestureRecognizer()
-          ..onTap = () {
-            showBottomSheet(
-              context: context,
-              builder: (c) => LinkCard(
-                link: data['url'],
-                title: data['url'],
-              ),
-            );
+          ..onTap = () async {
+            // showBottomSheet(
+            //   context: context,
+            //   builder: (c) => LinkCard(
+            //     link: data['url'],
+            //     title: data['url'],
+            //   ),
+            // );
+            final link = Uri.parse(data['url']);
+            if (await canLaunchUrl(link)) {
+              await launchUrl(link);
+            }
           };
       } else {
         recognizer = TapGestureRecognizer()
-          ..onTap = () {
-            showBottomSheet(
-              context: context,
-              builder: (c) => LinkCard(
-                link: data['url']['link'],
-                title: data['url']['title'],
-                image: data['url']['image'],
-                summary: data['url']['summary'],
-              ),
-            );
+          ..onTap = () async {
+            // showBottomSheet(
+            //   context: context,
+            //   builder: (c) => LinkCard(
+            //     link: data['url']['link'],
+            //     title: data['url']['title'],
+            //     image: data['url']['image'],
+            //     summary: data['url']['summary'],
+            //   ),
+            // );
+            final link = Uri.parse(data['url']['link']);
+            if (await canLaunchUrl(link)) {
+              await launchUrl(link);
+            }
           };
       }
     }
@@ -129,8 +137,9 @@ class LinkCard extends StatelessWidget {
                     tooltip: "Open in browser",
                     icon: Icon(Icons.launch),
                     onPressed: () async {
-                      if (await canLaunch(link)) {
-                        await launch(link);
+                      final linkUrl = Uri.parse(link);
+                      if (await canLaunchUrl(linkUrl)) {
+                        await launchUrl(linkUrl);
                         Navigator.pop(context);
                       }
                     },

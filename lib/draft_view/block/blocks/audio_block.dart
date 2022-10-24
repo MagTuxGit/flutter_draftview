@@ -175,8 +175,9 @@ class _AudioComponentState extends State<AudioComponent> {
                           WidgetSpan(
                             child: InkWell(
                               onTap: () async {
-                                if (await canLaunch(widget.url)) {
-                                  await launch(widget.url);
+                                final link = Uri.parse(widget.url);
+                                if (await canLaunchUrl(link)) {
+                                  await launchUrl(link);
                                 }
                               },
                               child: Text(
