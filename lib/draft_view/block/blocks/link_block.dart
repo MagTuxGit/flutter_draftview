@@ -1,4 +1,5 @@
 import 'package:draft_view/draft_view/block/base_block.dart';
+import 'package:draft_view/draft_view/uri_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class LinkBlock extends BaseBlock {
     if (data.containsKey('url')) {
       if (data['url'] is String) {
         recognizer = TapGestureRecognizer()
-          ..onTap = () async {
+          ..onTap = () {
             // showBottomSheet(
             //   context: context,
             //   builder: (c) => LinkCard(
@@ -61,14 +62,11 @@ class LinkBlock extends BaseBlock {
             //     title: data['url'],
             //   ),
             // );
-            final link = Uri.parse(data['url']);
-            if (await canLaunchUrl(link)) {
-              await launchUrl(link);
-            }
+            UriHelper.launchUrl(data['url']);
           };
       } else {
         recognizer = TapGestureRecognizer()
-          ..onTap = () async {
+          ..onTap = () {
             // showBottomSheet(
             //   context: context,
             //   builder: (c) => LinkCard(
@@ -78,10 +76,7 @@ class LinkBlock extends BaseBlock {
             //     summary: data['url']['summary'],
             //   ),
             // );
-            final link = Uri.parse(data['url']['link']);
-            if (await canLaunchUrl(link)) {
-              await launchUrl(link);
-            }
+            UriHelper.launchUrl(data['url']['link']);
           };
       }
     }
@@ -136,12 +131,8 @@ class LinkCard extends StatelessWidget {
                   trailing: IconButton(
                     tooltip: "Open in browser",
                     icon: Icon(Icons.launch),
-                    onPressed: () async {
-                      final linkUrl = Uri.parse(link);
-                      if (await canLaunchUrl(linkUrl)) {
-                        await launchUrl(linkUrl);
-                        Navigator.pop(context);
-                      }
+                    onPressed: () {
+                      UriHelper.launchUrl(link);
                     },
                   ),
                 ),

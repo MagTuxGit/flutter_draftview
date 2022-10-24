@@ -1,4 +1,5 @@
 import 'package:draft_view/draft_view/block/base_block.dart';
+import 'package:draft_view/draft_view/uri_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -174,11 +175,8 @@ class _AudioComponentState extends State<AudioComponent> {
                         children: [
                           WidgetSpan(
                             child: InkWell(
-                              onTap: () async {
-                                final link = Uri.parse(widget.url);
-                                if (await canLaunchUrl(link)) {
-                                  await launchUrl(link);
-                                }
+                              onTap: () {
+                                UriHelper.launchUrl(widget.url);
                               },
                               child: Text(
                                 "${widget.url}",
