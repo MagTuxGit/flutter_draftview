@@ -4,6 +4,7 @@ import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 // To parse this JSON data, do
 //
@@ -156,7 +157,7 @@ class PostSettingsBlock extends BaseBlock {
     List<InlineSpan>? children,
     TextStyle? baseStyle,
     Map<String, Color>? textColorMap,
-    Map<String, Color>? highlightColorMap,
+    Map<String, Tuple2<Color, Color?>>? highlightColorMap,
   }) {
     late _DetailSettings _detailSettings;
     var textStyle = renderStyle(context, baseStyle).copyWith(

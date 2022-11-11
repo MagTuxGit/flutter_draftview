@@ -1,5 +1,6 @@
 import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 class HeaderBlock extends BaseBlock {
   /// Entity type
@@ -44,7 +45,7 @@ class HeaderBlock extends BaseBlock {
   @override
   TextStyle renderStyle(BuildContext context, TextStyle? baseStyle,
       {Map<String, Color>? textColorMap,
-      Map<String, Color>? highlightColorMap}) {
+      Map<String, Tuple2<Color, Color?>>? highlightColorMap}) {
     var prevStyle = super.renderStyle(context, baseStyle);
 
     switch (level) {
@@ -108,7 +109,7 @@ class HeaderBlock extends BaseBlock {
     List<InlineSpan>? children,
     TextStyle? baseStyle,
     Map<String, Color>? textColorMap,
-    Map<String, Color>? highlightColorMap,
+    Map<String, Tuple2<Color, Color?>>? highlightColorMap,
   }) {
     return TextSpan(
         text: "$textContent", style: renderStyle(context, baseStyle));

@@ -3,13 +3,14 @@ import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:draft_view/draft_view/converter/converter.dart';
 import 'package:draft_view/draft_view/plugin/base_plugin.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 class DraftView extends StatefulWidget {
   final Map<String, dynamic> rawDraftData;
   final List<BasePlugin> plugins;
   final TextStyle? baseStyle;
   final Map<String, Color>? textColorMap;
-  final Map<String, Color>? highlightColorMap;
+  final Map<String, Tuple2<Color, Color?>>? highlightColorMap;
 
   const DraftView({
     Key? key,

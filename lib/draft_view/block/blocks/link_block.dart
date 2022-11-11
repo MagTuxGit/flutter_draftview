@@ -3,6 +3,7 @@ import 'package:draft_view/draft_view/uri_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 class LinkBlock extends BaseBlock {
   LinkBlock({
@@ -54,7 +55,7 @@ class LinkBlock extends BaseBlock {
     List<InlineSpan>? children,
     TextStyle? baseStyle,
     Map<String, Color>? textColorMap,
-    Map<String, Color>? highlightColorMap,
+    Map<String, Tuple2<Color, Color?>>? highlightColorMap,
   }) {
     GestureRecognizer? recognizer;
 

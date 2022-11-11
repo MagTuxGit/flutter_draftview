@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:draft_view/draft_view/plugin/base_plugin.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 import './extensions.dart';
 
 class BaseBlock {
@@ -278,6 +279,29 @@ class BaseBlock {
     return color;
   }
 
+  /// get highlight color
+  Tuple2<Color, Color?> backgroundColor(BuildContext context, Color? baseColor,
+      {Map<String, Tuple2<Color, Color?>>? highlightColorMap}) {
+    Color backgroundColor = baseColor ??
+        Theme.of(context).textTheme.bodyText1!.backgroundColor ??
+        Colors.transparent;
+    Color? textColor;
+
+    for (String style in inlineStyles) {
+      if (style[0] == '#') {
+        backgroundColor = HexColor.fromHex(style);
+      }
+
+      final mappedColor = highlightColorMap?[style];
+      if (mappedColor != null) {
+        backgroundColor = mappedColor.item1;
+        textColor = mappedColor.item2;
+      }
+    }
+
+    return Tuple2(backgroundColor, textColor);
+  }
+
   /// Get fontweight for each block based on their [inline styles]
   FontWeight? get fontWeight =>
       this.inlineStyles.contains("BOLD") ? FontWeight.bold : null;
@@ -303,14 +327,19 @@ class BaseBlock {
   /// Render style based on the block's type and inline styles
   TextStyle renderStyle(BuildContext context, TextStyle? baseStyle,
       {Map<String, Color>? textColorMap,
-      Map<String, Color>? highlightColorMap}) {
-    var textStyle = baseStyle ?? Theme.of(context).textTheme.bodyText1!;
+      Map<String, Tuple2<Color, Color?>>? highlightColorMap}) {
+    TextStyle textStyle = baseStyle ?? Theme.of(context).textTheme.bodyText1!;
+    Tuple2<Color, Color?> colors = backgroundColor(
+        context, baseStyle?.backgroundColor,
+        highlightColorMap: highlightColorMap);
 
     return textStyle.copyWith(
       fontWeight: fontWeight,
       fontStyle: fontStyle,
       decoration: decoration(baseStyle?.decoration),
-      color: textColor(context, baseStyle?.color, textColorMap: textColorMap),
+      color: textColor(context, colors.item2 ?? baseStyle?.color,
+          textColorMap: textColorMap),
+      backgroundColor: colors.item1,
     );
   }
 
@@ -322,7 +351,7 @@ class BaseBlock {
     List<InlineSpan>? children,
     TextStyle? baseStyle,
     Map<String, Color>? textColorMap,
-    Map<String, Color>? highlightColorMap,
+    Map<String, Tuple2<Color, Color?>>? highlightColorMap,
   }) {
     return TextSpan(
       text: this.textContent,

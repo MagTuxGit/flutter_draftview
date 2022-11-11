@@ -1,5 +1,6 @@
 import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 class BlockQuoteBlock extends BaseBlock {
   BlockQuoteBlock({
@@ -42,7 +43,7 @@ class BlockQuoteBlock extends BaseBlock {
     List<InlineSpan>? children,
     TextStyle? baseStyle,
     Map<String, Color>? textColorMap,
-    Map<String, Color>? highlightColorMap,
+    Map<String, Tuple2<Color, Color?>>? highlightColorMap,
   }) {
     var style = renderStyle(context, baseStyle);
     var text = children?.length == 0 ? textContent : null;
