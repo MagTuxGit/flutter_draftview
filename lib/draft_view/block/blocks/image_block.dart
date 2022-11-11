@@ -35,8 +35,13 @@ class ImageBlock extends BaseBlock {
       );
 
   @override
-  InlineSpan render(BuildContext context,
-      {List<InlineSpan>? children, TextStyle? baseStyle}) {
+  InlineSpan render(
+    BuildContext context, {
+    List<InlineSpan>? children,
+    TextStyle? baseStyle,
+    Map<String, Color>? textColorMap,
+    Map<String, Color>? highlightColorMap,
+  }) {
     return WidgetSpan(
       child: ImageComponent(
         url: data['src'],

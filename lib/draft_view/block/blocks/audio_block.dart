@@ -1,7 +1,6 @@
 import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:draft_view/draft_view/uri_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 extension on Duration {
   String toAudioString() {
@@ -54,8 +53,13 @@ class AudioBlock extends BaseBlock {
       );
 
   @override
-  InlineSpan render(BuildContext context,
-      {List<InlineSpan>? children, TextStyle? baseStyle}) {
+  InlineSpan render(
+    BuildContext context, {
+    List<InlineSpan>? children,
+    TextStyle? baseStyle,
+    Map<String, Color>? textColorMap,
+    Map<String, Color>? highlightColorMap,
+  }) {
     return WidgetSpan(
       child: AudioComponent(
         url: data['src'],

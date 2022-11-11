@@ -8,13 +8,17 @@ class DraftView extends StatefulWidget {
   final Map<String, dynamic> rawDraftData;
   final List<BasePlugin> plugins;
   final TextStyle? baseStyle;
+  final Map<String, Color>? textColorMap;
+  final Map<String, Color>? highlightColorMap;
 
-  const DraftView(
-      {Key? key,
-      required this.rawDraftData,
-      required this.plugins,
-      this.baseStyle})
-      : super(key: key);
+  const DraftView({
+    Key? key,
+    required this.rawDraftData,
+    required this.plugins,
+    this.baseStyle,
+    this.textColorMap,
+    this.highlightColorMap,
+  }) : super(key: key);
 
   @override
   _DraftViewState createState() => _DraftViewState();
@@ -54,13 +58,16 @@ class _DraftViewState extends State<DraftView> {
     while (i < blocks.length) {
       var curBlock = blocks[i];
 
-      var span = curBlock.render(
-        context,
-        children: curBlock.children
-            ?.map((e) => e.render(context, baseStyle: widget.baseStyle))
-            .toList(),
-        baseStyle: widget.baseStyle,
-      );
+      var span = curBlock.render(context,
+          children: curBlock.children
+              ?.map((e) => e.render(context,
+                  baseStyle: widget.baseStyle,
+                  textColorMap: widget.textColorMap,
+                  highlightColorMap: widget.highlightColorMap))
+              .toList(),
+          baseStyle: widget.baseStyle,
+          textColorMap: widget.textColorMap,
+          highlightColorMap: widget.highlightColorMap);
       spans.add(span);
 
       i++;

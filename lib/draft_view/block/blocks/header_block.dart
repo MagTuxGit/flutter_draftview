@@ -42,7 +42,9 @@ class HeaderBlock extends BaseBlock {
       );
 
   @override
-  TextStyle renderStyle(BuildContext context, TextStyle? baseStyle) {
+  TextStyle renderStyle(BuildContext context, TextStyle? baseStyle,
+      {Map<String, Color>? textColorMap,
+      Map<String, Color>? highlightColorMap}) {
     var prevStyle = super.renderStyle(context, baseStyle);
 
     switch (level) {
@@ -101,8 +103,13 @@ class HeaderBlock extends BaseBlock {
   }
 
   @override
-  InlineSpan render(BuildContext context,
-      {List<InlineSpan>? children, TextStyle? baseStyle}) {
+  InlineSpan render(
+    BuildContext context, {
+    List<InlineSpan>? children,
+    TextStyle? baseStyle,
+    Map<String, Color>? textColorMap,
+    Map<String, Color>? highlightColorMap,
+  }) {
     return TextSpan(
         text: "$textContent", style: renderStyle(context, baseStyle));
   }

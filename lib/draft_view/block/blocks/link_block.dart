@@ -3,7 +3,6 @@ import 'package:draft_view/draft_view/uri_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class LinkBlock extends BaseBlock {
   LinkBlock({
@@ -44,11 +43,19 @@ class LinkBlock extends BaseBlock {
   // TextDecoration get decoration => TextDecoration.underline;
 
   @override
-  Color textColor(context, Color? baseColor) => Color(0xFF175CFF);
+  Color textColor(context, Color? baseColor,
+          {Map<String, Color>? textColorMap,
+          Map<String, Color>? highlightColorMap}) =>
+      Color(0xFF175CFF);
 
   @override
-  InlineSpan render(BuildContext context,
-      {List<InlineSpan>? children, TextStyle? baseStyle}) {
+  InlineSpan render(
+    BuildContext context, {
+    List<InlineSpan>? children,
+    TextStyle? baseStyle,
+    Map<String, Color>? textColorMap,
+    Map<String, Color>? highlightColorMap,
+  }) {
     GestureRecognizer? recognizer;
 
     if (data.containsKey('url')) {
@@ -108,34 +115,34 @@ class LinkCard extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: ListTile(
-                  leading: image != null
-                      ? Image.network(
-                          image!,
-                          height: 50,
-                          loadingBuilder: (c, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Container(
-                              height: 50,
-                              color: Colors.grey.withOpacity(0.4),
-                              child: Center(
-                                child: CupertinoActivityIndicator(),
-                              ),
-                            );
-                          },
-                        )
-                      : null,
-                  title: Text("${title ?? "No title"}"),
-                  subtitle: Text(summary ?? ""),
-                  trailing: IconButton(
-                    tooltip: "Open in browser",
-                    icon: Icon(Icons.launch),
-                    onPressed: () {
-                      UriHelper.launchUrl(link);
-                    },
-                  ),
+              width: MediaQuery.of(context).size.width,
+              child: ListTile(
+                leading: image != null
+                    ? Image.network(
+                        image!,
+                        height: 50,
+                        loadingBuilder: (c, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Container(
+                            height: 50,
+                            color: Colors.grey.withOpacity(0.4),
+                            child: Center(
+                              child: CupertinoActivityIndicator(),
+                            ),
+                          );
+                        },
+                      )
+                    : null,
+                title: Text("${title ?? "No title"}"),
+                subtitle: Text(summary ?? ""),
+                trailing: IconButton(
+                  tooltip: "Open in browser",
+                  icon: Icon(Icons.launch),
+                  onPressed: () {
+                    UriHelper.launchUrl(link);
+                  },
                 ),
+              ),
             ),
           ),
         ),

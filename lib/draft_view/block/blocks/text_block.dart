@@ -2,7 +2,6 @@ import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:flutter/material.dart';
 
 class TextBlock extends BaseBlock {
-
   TextBlock({
     required int depth,
     required int start,
@@ -13,18 +12,17 @@ class TextBlock extends BaseBlock {
     required List<String> entityTypes,
     required String blockType,
   }) : super(
-    depth: depth,
-    start: start,
-    end: end,
-    inlineStyles: inlineStyles,
-    data: data,
-    text: text,
-    entityTypes: entityTypes,
-    blockType: blockType,
-  );
+          depth: depth,
+          start: start,
+          end: end,
+          inlineStyles: inlineStyles,
+          data: data,
+          text: text,
+          entityTypes: entityTypes,
+          blockType: blockType,
+        );
 
-  TextBlock copyWith({BaseBlock? block}) =>
-      TextBlock(
+  TextBlock copyWith({BaseBlock? block}) => TextBlock(
         depth: block?.depth ?? depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
@@ -39,19 +37,24 @@ class TextBlock extends BaseBlock {
 class NewlineBlock extends BaseBlock {
   NewlineBlock()
       : super(
-    depth: 0,
-    start: 0,
-    end: 0,
-    inlineStyles: [],
-    data: {},
-    text: "",
-    entityTypes: [],
-    blockType: "newline",
-  );
+          depth: 0,
+          start: 0,
+          end: 0,
+          inlineStyles: [],
+          data: {},
+          text: "",
+          entityTypes: [],
+          blockType: "newline",
+        );
 
   @override
-  InlineSpan render(BuildContext context,
-      {List<InlineSpan>? children, TextStyle? baseStyle}) {
+  InlineSpan render(
+    BuildContext context, {
+    List<InlineSpan>? children,
+    TextStyle? baseStyle,
+    Map<String, Color>? textColorMap,
+    Map<String, Color>? highlightColorMap,
+  }) {
     return TextSpan(text: "\n", style: renderStyle(context, baseStyle));
   }
 }

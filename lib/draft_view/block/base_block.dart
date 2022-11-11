@@ -260,12 +260,19 @@ class BaseBlock {
   }
 
   /// get text color
-  Color textColor(BuildContext context, Color? baseColor) {
-    var color = baseColor ?? Theme.of(context).textTheme.bodyText1!.color!;
-    var style = inlineStyles.firstWhere((element) => element[0] == "#",
-        orElse: () => "");
-    if (style.isNotEmpty) {
-      color = HexColor.fromHex(style);
+  Color textColor(BuildContext context, Color? baseColor,
+      {Map<String, Color>? textColorMap}) {
+    Color color = baseColor ?? Theme.of(context).textTheme.bodyText1!.color!;
+
+    for (String style in inlineStyles) {
+      if (style[0] == '#') {
+        color = HexColor.fromHex(style);
+      }
+
+      final mappedColor = textColorMap?[style];
+      if (mappedColor != null) {
+        color = mappedColor;
+      }
     }
 
     return color;
@@ -294,25 +301,33 @@ class BaseBlock {
   }
 
   /// Render style based on the block's type and inline styles
-  TextStyle renderStyle(BuildContext context, TextStyle? baseStyle) {
+  TextStyle renderStyle(BuildContext context, TextStyle? baseStyle,
+      {Map<String, Color>? textColorMap,
+      Map<String, Color>? highlightColorMap}) {
     var textStyle = baseStyle ?? Theme.of(context).textTheme.bodyText1!;
 
     return textStyle.copyWith(
       fontWeight: fontWeight,
       fontStyle: fontStyle,
       decoration: decoration(baseStyle?.decoration),
-      color: textColor(context, baseStyle?.color),
+      color: textColor(context, baseStyle?.color, textColorMap: textColorMap),
     );
   }
 
   /// Render the current block
   ///
   /// @param [children] List of children
-  InlineSpan render(BuildContext context,
-      {List<InlineSpan>? children, TextStyle? baseStyle}) {
+  InlineSpan render(
+    BuildContext context, {
+    List<InlineSpan>? children,
+    TextStyle? baseStyle,
+    Map<String, Color>? textColorMap,
+    Map<String, Color>? highlightColorMap,
+  }) {
     return TextSpan(
       text: this.textContent,
-      style: renderStyle(context, baseStyle),
+      style: renderStyle(context, baseStyle,
+          textColorMap: textColorMap, highlightColorMap: highlightColorMap),
       children: children,
     );
   }
