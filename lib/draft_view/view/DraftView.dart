@@ -115,6 +115,7 @@ class _DraftViewState extends State<DraftView> {
           children: _renderText(),
         ),
         textAlign: textAlign,
+        textScaleFactor: MediaQuery.textScaleFactorOf(context),
       ),
     );
   }
