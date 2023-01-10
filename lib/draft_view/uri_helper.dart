@@ -4,11 +4,11 @@ class UriHelper {
   static Future<void> launchUrl(String url) async {
     if (!url.startsWith('http')) {
       url = 'https://$url';
-    };
+    }
 
     final link = Uri.parse(url);
     if (await plugin.canLaunchUrl(link)) {
-      await plugin.launchUrl(link);
+      await plugin.launchUrl(link, mode: plugin.LaunchMode.externalApplication);
     }
   }
 }
