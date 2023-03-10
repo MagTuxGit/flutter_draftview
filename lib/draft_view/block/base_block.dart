@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:draft_view/draft_view/plugin/base_plugin.dart';
+import 'package:draft_view/draft_view/string_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import './extensions.dart';
@@ -80,7 +81,7 @@ class BaseBlock {
 
   /// Get text content based on the start and end
   String get textContent {
-    return text.substring(start, end);
+    return text.validSubstring(start, end);
   }
 
   /// Add inline style to the block
