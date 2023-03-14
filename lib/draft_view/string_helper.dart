@@ -1,5 +1,13 @@
+import 'dart:math';
+
 extension StringExtension on String {
   String validSubstring(int start, int end) {
+    if (isEmpty || start > length || end < 0) {
+      return this;
+    }
+    start = max(start, 0);
+    end = min(end, length);
+
     bool isFirstUtf16Surrogate(int value) {
       return value & 0xFC00 == 0xD800;
     }
