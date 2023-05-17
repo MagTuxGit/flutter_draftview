@@ -176,7 +176,7 @@ class _AudioComponentState extends State<AudioComponent> {
                   RichText(
                     text: TextSpan(
                         text: "Audio src: ",
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.bodySmall,
                         children: [
                           WidgetSpan(
                             child: InkWell(
@@ -189,7 +189,7 @@ class _AudioComponentState extends State<AudioComponent> {
                                 overflow: TextOverflow.clip,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .caption!
+                                    .bodySmall!
                                     .copyWith(
                                       color: Colors.blue,
                                       decoration: TextDecoration.underline,

@@ -264,7 +264,7 @@ class BaseBlock {
   /// get text color
   Color textColor(BuildContext context, Color? baseColor,
       {Map<String, Color>? textColorMap}) {
-    Color color = baseColor ?? Theme.of(context).textTheme.bodyText1!.color!;
+    Color color = baseColor ?? Theme.of(context).textTheme.bodyLarge!.color!;
 
     for (String style in inlineStyles) {
       if (style[0] == '#') {
@@ -284,7 +284,7 @@ class BaseBlock {
   Tuple2<Color, Color?> backgroundColor(BuildContext context, Color? baseColor,
       {Map<String, Tuple2<Color, Color?>>? highlightColorMap}) {
     Color backgroundColor = baseColor ??
-        Theme.of(context).textTheme.bodyText1!.backgroundColor ??
+        Theme.of(context).textTheme.bodyLarge!.backgroundColor ??
         Colors.transparent;
     Color? textColor;
 
@@ -329,7 +329,7 @@ class BaseBlock {
   TextStyle renderStyle(BuildContext context, TextStyle? baseStyle,
       {Map<String, Color>? textColorMap,
       Map<String, Tuple2<Color, Color?>>? highlightColorMap}) {
-    TextStyle textStyle = baseStyle ?? Theme.of(context).textTheme.bodyText1!;
+    TextStyle textStyle = baseStyle ?? Theme.of(context).textTheme.bodyLarge!;
     Tuple2<Color, Color?> colors = backgroundColor(
         context, baseStyle?.backgroundColor,
         highlightColorMap: highlightColorMap);
