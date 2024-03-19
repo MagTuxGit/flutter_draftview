@@ -198,7 +198,7 @@ class _AudioComponentState extends State<AudioComponent> {
                             ),
                           )
                         ]),
-                    textScaleFactor: MediaQuery.textScaleFactorOf(context),
+                    textScaler: MediaQuery.textScalerOf(context),
                   ),
                 ],
               ),

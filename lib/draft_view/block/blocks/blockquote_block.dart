@@ -65,7 +65,7 @@ class BlockQuoteBlock extends BaseBlock {
               children: children,
               style: style,
             ),
-            textScaleFactor: MediaQuery.textScaleFactorOf(context),
+            textScaler: MediaQuery.textScalerOf(context),
           ),
         ),
       ),
