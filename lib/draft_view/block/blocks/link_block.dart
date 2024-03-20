@@ -7,27 +7,18 @@ import 'package:tuple/tuple.dart';
 
 class LinkBlock extends BaseBlock {
   LinkBlock({
-    required int depth,
-    required int start,
-    required int end,
-    required List<String> inlineStyles,
-    required Map<String, dynamic> data,
-    required String text,
-    required List<String> entityTypes,
-    required String blockType,
-    required List<BaseBlock> children,
-  }) : super(
-          depth: depth,
-          start: start,
-          end: end,
-          inlineStyles: inlineStyles,
-          data: data,
-          text: text,
-          entityTypes: entityTypes,
-          blockType: blockType,
-          children: children,
-        );
+    required super.depth,
+    required super.start,
+    required super.end,
+    required super.inlineStyles,
+    required super.data,
+    required super.text,
+    required super.entityTypes,
+    required super.blockType,
+    required List<BaseBlock> super.children,
+  });
 
+  @override
   LinkBlock copyWith({BaseBlock? block}) => LinkBlock(
         depth: block?.depth ?? depth,
         start: block?.start ?? this.start,
@@ -47,7 +38,7 @@ class LinkBlock extends BaseBlock {
   Color textColor(context, Color? baseColor,
           {Map<String, Color>? textColorMap,
           Map<String, Color>? highlightColorMap}) =>
-      Color(0xFF175CFF);
+      const Color(0xFF175CFF);
 
   @override
   InlineSpan render(
@@ -91,7 +82,7 @@ class LinkBlock extends BaseBlock {
 
     return TextSpan(
       recognizer: recognizer,
-      text: "$textContent",
+      text: textContent,
       children: children,
       style: renderStyle(context, baseStyle),
     );
@@ -105,8 +96,7 @@ class LinkCard extends StatelessWidget {
   final String? image;
 
   const LinkCard(
-      {Key? key, this.title, required this.link, this.summary, this.image})
-      : super(key: key);
+      {super.key, this.title, required this.link, this.summary, this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +105,7 @@ class LinkCard extends StatelessWidget {
         Card(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: ListTile(
                 leading: image != null
@@ -127,18 +117,18 @@ class LinkCard extends StatelessWidget {
                           return Container(
                             height: 50,
                             color: Colors.grey.withOpacity(0.4),
-                            child: Center(
+                            child: const Center(
                               child: CupertinoActivityIndicator(),
                             ),
                           );
                         },
                       )
                     : null,
-                title: Text("${title ?? "No title"}"),
+                title: Text(title ?? "No title"),
                 subtitle: Text(summary ?? ""),
                 trailing: IconButton(
                   tooltip: "Open in browser",
-                  icon: Icon(Icons.launch),
+                  icon: const Icon(Icons.launch),
                   onPressed: () {
                     UriHelper.launchUrl(link);
                   },
@@ -150,7 +140,7 @@ class LinkCard extends StatelessWidget {
         Positioned(
           right: 5,
           child: IconButton(
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
             onPressed: () => Navigator.pop(context),
           ),
         )

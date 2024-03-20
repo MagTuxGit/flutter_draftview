@@ -23,6 +23,7 @@ class Converter {
       final draftBlock = RawDraftContentBlock.fromJson(block);
       draftBlocks.add(draftBlock);
       bool hasAdded = false;
+
       final tmpB = BaseBlock(
         depth: draftBlock.depth.toInt(),
         start: 0,
@@ -33,6 +34,7 @@ class Converter {
         entityTypes: [],
         blockType: draftBlock.type,
       );
+
       for (final plugin in plugins) {
         if (plugin.blockRenderFn(tmpB)?.containsKey(draftBlock.type) ?? false) {
           var b = plugin
@@ -43,6 +45,7 @@ class Converter {
           break;
         }
       }
+
       if (!hasAdded) {
         blocks.add(tmpB);
       }
@@ -69,7 +72,7 @@ class Converter {
       );
 
       if (block.children != null) {
-        if (bs.length > 0) {
+        if (bs.isNotEmpty) {
           if (bs.first != block) {
             block.children!.addAll(bs);
           }

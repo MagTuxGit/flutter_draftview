@@ -4,27 +4,18 @@ import 'package:tuple/tuple.dart';
 
 class BlockQuoteBlock extends BaseBlock {
   BlockQuoteBlock({
-    required depth,
-    required start,
-    required end,
-    required List<String> inlineStyles,
-    required Map<String, dynamic> data,
-    required String text,
-    required List<String> entityTypes,
-    required String blockType,
-    required List<BaseBlock> children,
-  }) : super(
-          depth: depth,
-          start: start,
-          end: end,
-          inlineStyles: inlineStyles,
-          data: data,
-          text: text,
-          entityTypes: entityTypes,
-          blockType: blockType,
-          children: children,
-        );
+    required super.depth,
+    required super.start,
+    required super.end,
+    required super.inlineStyles,
+    required super.data,
+    required super.text,
+    required super.entityTypes,
+    required super.blockType,
+    required List<BaseBlock> super.children,
+  });
 
+  @override
   BlockQuoteBlock copyWith({BaseBlock? block}) => BlockQuoteBlock(
         depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
@@ -46,7 +37,7 @@ class BlockQuoteBlock extends BaseBlock {
     Map<String, Tuple2<Color, Color?>>? highlightColorMap,
   }) {
     var style = renderStyle(context, baseStyle);
-    var text = children?.length == 0 ? textContent : null;
+    var text = children?.isEmpty == true ? textContent : null;
 
     return WidgetSpan(
       child: Container(

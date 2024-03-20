@@ -11,26 +11,18 @@ class ListBlock extends BaseBlock {
 
   ListBlock({
     required this.order,
-    required int depth,
-    required int start,
-    required int end,
-    required List<String> inlineStyles,
-    required Map<String, dynamic> data,
-    required String text,
-    required List<String> entityTypes,
-    required String blockType,
+    required super.depth,
+    required super.start,
+    required super.end,
+    required super.inlineStyles,
+    required super.data,
+    required super.text,
+    required super.entityTypes,
+    required super.blockType,
     required this.isOrderedList,
-  }) : super(
-          depth: depth,
-          start: start,
-          end: end,
-          inlineStyles: inlineStyles,
-          data: data,
-          text: text,
-          entityTypes: entityTypes,
-          blockType: blockType,
-        );
+  });
 
+  @override
   ListBlock copyWith({BaseBlock? block}) => ListBlock(
         depth: this.depth,
         start: block?.start ?? this.start,

@@ -18,10 +18,10 @@ class Settings {
     required this.settings,
   });
 
-  List<_PostSettings>? settings;
+  List<PostSettings>? settings;
 
   Settings copyWith({
-    List<_PostSettings>? settings,
+    List<PostSettings>? settings,
   }) =>
       Settings(
         settings: settings ?? this.settings,
@@ -30,9 +30,9 @@ class Settings {
   factory Settings.fromJson(Map<String, dynamic> json) => Settings(
         settings: json["settings"] == null
             ? []
-            : List<_PostSettings>.from(
+            : List<PostSettings>.from(
                 json["settings"].map(
-                  (x) => _PostSettings.fromJson(x),
+                  (x) => PostSettings.fromJson(x),
                 ),
               ),
       );
@@ -44,42 +44,42 @@ class Settings {
       };
 }
 
-class _PostSettings {
-  _PostSettings({
+class PostSettings {
+  PostSettings({
     required this.detailSettings,
     required this.id,
   });
 
-  List<_DetailSettings>? detailSettings;
+  List<DetailSettings>? detailSettings;
   String? id;
 
-  _PostSettings copyWith({
-    List<_DetailSettings>? detailSettings,
+  PostSettings copyWith({
+    List<DetailSettings>? detailSettings,
     String? id,
   }) =>
-      _PostSettings(
+      PostSettings(
         detailSettings: detailSettings ?? this.detailSettings,
         id: id ?? this.id,
       );
 
-  factory _PostSettings.fromJson(Map<String, dynamic> json) => _PostSettings(
+  factory PostSettings.fromJson(Map<String, dynamic> json) => PostSettings(
         detailSettings: json["detailSettings"] == null
             ? []
-            : List<_DetailSettings>.from(
-                json["detailSettings"].map((x) => _DetailSettings.fromJson(x))),
-        id: json["id"] == null ? null : json["id"],
+            : List<DetailSettings>.from(
+                json["detailSettings"].map((x) => DetailSettings.fromJson(x))),
+        id: json["id"],
       );
 
   Map<String, dynamic> toJson() => {
         "detailSettings": detailSettings == null
             ? null
             : List<dynamic>.from(detailSettings!.map((x) => x.toJson())),
-        "id": id == null ? null : id,
+        "id": id,
       };
 }
 
-class _DetailSettings {
-  _DetailSettings({
+class DetailSettings {
+  DetailSettings({
     required this.description,
     required this.name,
     required this.id,
@@ -89,26 +89,26 @@ class _DetailSettings {
   String? name;
   String? id;
 
-  _DetailSettings copyWith({
+  DetailSettings copyWith({
     String? description,
     String? name,
     String? id,
   }) =>
-      _DetailSettings(
+      DetailSettings(
         description: description ?? this.description,
         name: name ?? this.name,
         id: id ?? this.id,
       );
 
-  factory _DetailSettings.fromJson(Map<String, dynamic> json) =>
-      _DetailSettings(
-          description: json["description"] == null ? null : json["description"],
-          name: json["name"] == null ? null : json["name"],
+  factory DetailSettings.fromJson(Map<String, dynamic> json) =>
+      DetailSettings(
+          description: json["description"],
+          name: json["name"],
           id: json['id']);
 
   Map<String, dynamic> toJson() => {
-        "description": description == null ? null : description,
-        "name": name == null ? null : name,
+        "description": description,
+        "name": name,
         "id": id,
       };
 }
@@ -119,26 +119,18 @@ class PostSettingsBlock extends BaseBlock {
   final Settings settings;
 
   PostSettingsBlock({
-    required int depth,
-    required int start,
-    required int end,
-    required List<String> inlineStyles,
-    required Map<String, dynamic> data,
-    required String text,
-    required List<String> entityTypes,
-    required String blockType,
+    required super.depth,
+    required super.start,
+    required super.end,
+    required super.inlineStyles,
+    required super.data,
+    required super.text,
+    required super.entityTypes,
+    required super.blockType,
     required this.settings,
-  }) : super(
-          depth: depth,
-          start: start,
-          end: end,
-          inlineStyles: inlineStyles,
-          data: data,
-          text: text,
-          entityTypes: entityTypes,
-          blockType: blockType,
-        );
+  });
 
+  @override
   PostSettingsBlock copyWith({BaseBlock? block}) => PostSettingsBlock(
         depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
@@ -159,7 +151,7 @@ class PostSettingsBlock extends BaseBlock {
     Map<String, Color>? textColorMap,
     Map<String, Tuple2<Color, Color?>>? highlightColorMap,
   }) {
-    late _DetailSettings _detailSettings;
+    late DetailSettings detailSettings;
     var textStyle = renderStyle(context, baseStyle).copyWith(
       color: Colors.orange,
     );
@@ -167,7 +159,7 @@ class PostSettingsBlock extends BaseBlock {
     for (var setting in settings.settings ?? []) {
       for (var ds in setting?.detailSettings ?? []) {
         if (ds.id == data['id']) {
-          _detailSettings = ds;
+          detailSettings = ds;
         }
       }
     }
@@ -177,7 +169,7 @@ class PostSettingsBlock extends BaseBlock {
         showBottomSheet(
           context: context,
           builder: (c) => PostSettingsCard(
-            settings: _detailSettings,
+            settings: detailSettings,
           ),
         );
       };
@@ -188,7 +180,7 @@ class PostSettingsBlock extends BaseBlock {
     }
 
     return TextSpan(
-      text: _detailSettings.name,
+      text: detailSettings.name,
       recognizer: recognizer,
       style: textStyle,
       children: useTooltip
@@ -197,7 +189,7 @@ class PostSettingsBlock extends BaseBlock {
                 style: textStyle,
                 alignment: PlaceholderAlignment.middle,
                 child: Tooltip(
-                  message: _detailSettings.description,
+                  message: detailSettings.description,
                   child: InkWell(
                     onHover: (_) {},
                     onTap: () {},
@@ -216,9 +208,9 @@ class PostSettingsBlock extends BaseBlock {
 }
 
 class PostSettingsCard extends StatelessWidget {
-  final _DetailSettings settings;
+  final DetailSettings settings;
 
-  const PostSettingsCard({Key? key, required this.settings}) : super(key: key);
+  const PostSettingsCard({super.key, required this.settings});
 
   @override
   Widget build(BuildContext context) {
@@ -227,7 +219,7 @@ class PostSettingsCard extends StatelessWidget {
         Card(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: ListTile(
                 title: Text(
@@ -243,7 +235,7 @@ class PostSettingsCard extends StatelessWidget {
         Positioned(
           right: 5,
           child: IconButton(
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
             onPressed: () => Navigator.pop(context),
           ),
         )

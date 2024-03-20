@@ -7,28 +7,19 @@ class HeaderBlock extends BaseBlock {
   final int level;
 
   HeaderBlock({
-    required int depth,
-    required int start,
-    required int end,
-    required List<String> inlineStyles,
-    required Map<String, dynamic> data,
-    required String text,
-    required List<String> entityTypes,
-    required String blockType,
+    required super.depth,
+    required super.start,
+    required super.end,
+    required super.inlineStyles,
+    required super.data,
+    required super.text,
+    required super.entityTypes,
+    required super.blockType,
     required this.level,
-    required List<BaseBlock> children,
-  }) : super(
-          depth: depth,
-          start: start,
-          end: end,
-          inlineStyles: inlineStyles,
-          data: data,
-          text: text,
-          entityTypes: entityTypes,
-          blockType: blockType,
-          children: children,
-        );
+    required List<BaseBlock> super.children,
+  });
 
+  @override
   HeaderBlock copyWith({BaseBlock? block}) => HeaderBlock(
         depth: block?.depth ?? depth,
         start: block?.start ?? this.start,
@@ -112,6 +103,6 @@ class HeaderBlock extends BaseBlock {
     Map<String, Tuple2<Color, Color?>>? highlightColorMap,
   }) {
     return TextSpan(
-        text: "$textContent", style: renderStyle(context, baseStyle));
+        text: textContent, style: renderStyle(context, baseStyle));
   }
 }

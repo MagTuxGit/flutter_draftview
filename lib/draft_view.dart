@@ -6,7 +6,7 @@ export './draft_view/converter/converter.dart';
 export './draft_view/plugin/base_plugin.dart';
 export './draft_view/block/extensions.dart';
 // view
-export './draft_view/view/DraftView.dart';
+export './draft_view/view/draft_view.dart';
 // blocks
 export './draft_view/block/blocks/text_block.dart';
 export './draft_view/block/blocks/header_block.dart';

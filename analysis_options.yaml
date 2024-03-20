@@ -1,4 +1,24 @@
+include: package:flutter_lints/flutter.yaml
+
 analyzer:
   exclude:
     - plugins/**
     - test/**
+  errors:
+    missing_return: error
+    dead_code: error
+    always_declare_return_types: error
+    avoid_web_libraries_in_flutter: error
+    missing_required_param: error
+    file_names: error
+    camel_case_types: error
+    empty_statements: error
+    iterable_contains_unrelated_type: error
+    list_remove_unrelated_type: error
+    no_duplicate_case_values: error
+    unrelated_type_equality_checks: error
+    prefer_single_quotes: error
+
+linter:
+  rules:
+    unnecessary_this: false

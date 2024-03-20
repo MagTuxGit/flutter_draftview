@@ -273,20 +273,20 @@ class RawDraftEntityT {
       };
 }
 
-enum ComposedEntityType { IMAGE, LINK, PHOTO, TOKEN }
+enum ComposedEntityType { image, link, photo, token }
 
 enum CoreDraftBlockType {
-  ATOMIC,
-  BLOCKQUOTE,
-  CODE_BLOCK,
-  HEADER_FIVE,
-  HEADER_FOUR,
-  HEADER_ONE,
-  HEADER_SIX,
-  HEADER_THREE,
-  HEADER_TWO,
-  ORDERED_LIST_ITEM,
-  PARAGRAPH,
-  UNORDERED_LIST_ITEM,
-  UNSTYLED
+  atomic,
+  blockquote,
+  codeBlock,
+  headerFive,
+  headerFour,
+  headerOne,
+  headerSix,
+  headerThree,
+  headerTwo,
+  orderedListItem,
+  paragraph,
+  unorderedListItem,
+  unstyled
 }

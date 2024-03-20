@@ -23,25 +23,17 @@ extension on Duration {
 
 class AudioBlock extends BaseBlock {
   AudioBlock({
-    required int depth,
-    required int start,
-    required int end,
-    required List<String> inlineStyles,
-    required Map<String, dynamic> data,
-    required String text,
-    required List<String> entityTypes,
-    required String blockType,
-  }) : super(
-          depth: depth,
-          start: start,
-          end: end,
-          inlineStyles: inlineStyles,
-          data: data,
-          text: text,
-          entityTypes: entityTypes,
-          blockType: blockType,
-        );
+    required super.depth,
+    required super.start,
+    required super.end,
+    required super.inlineStyles,
+    required super.data,
+    required super.text,
+    required super.entityTypes,
+    required super.blockType,
+  });
 
+  @override
   AudioBlock copyWith({BaseBlock? block}) => AudioBlock(
         depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
@@ -72,10 +64,10 @@ class AudioBlock extends BaseBlock {
 class AudioComponent extends StatefulWidget {
   final String url;
 
-  AudioComponent({required this.url});
+  const AudioComponent({super.key, required this.url});
 
   @override
-  _AudioComponentState createState() => _AudioComponentState();
+  State<AudioComponent> createState() => _AudioComponentState();
 }
 
 class _AudioComponentState extends State<AudioComponent> {
@@ -114,21 +106,21 @@ class _AudioComponentState extends State<AudioComponent> {
     return Card(
       child: Container(
         width: MediaQuery.of(context).size.width,
-        constraints: BoxConstraints.expand(height: 100),
+        constraints: const BoxConstraints.expand(height: 100),
         child: Row(
           children: [
             Expanded(
               flex: 10,
               child: Column(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     "Playback not support! ${current?.toAudioString()} / ${total?.toAudioString()}",
                     maxLines: 1,
                   ),
                   Row(
                     children: [
-                      Spacer(),
+                      const Spacer(),
                       if (!isPlaying)
                         IconButton(
                           onPressed: () {
@@ -138,23 +130,23 @@ class _AudioComponentState extends State<AudioComponent> {
                               _play();
                             }
                           },
-                          icon: Icon(Icons.play_arrow),
+                          icon: const Icon(Icons.play_arrow),
                         ),
                       if (isPlaying)
                         IconButton(
                           onPressed: () {
                             _pauseOrResume();
                           },
-                          icon: Icon(Icons.pause),
+                          icon: const Icon(Icons.pause),
                         ),
-                      Spacer(),
+                      const Spacer(),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                 ],
               ),
             ),
-            Expanded(
+            const Expanded(
               flex: 1,
               child: VerticalDivider(
                 width: 10,
@@ -184,7 +176,7 @@ class _AudioComponentState extends State<AudioComponent> {
                                 UriHelper.launchUrl(widget.url);
                               },
                               child: Text(
-                                "${widget.url}",
+                                widget.url,
                                 maxLines: 1,
                                 overflow: TextOverflow.clip,
                                 style: Theme.of(context)
@@ -212,8 +204,8 @@ class _AudioComponentState extends State<AudioComponent> {
   @override
   Widget build(BuildContext context) {
     return _buildPlayer(
-      Duration(seconds: 100),
-      Duration(seconds: 0),
+      const Duration(seconds: 100),
+      const Duration(seconds: 0),
     );
   }
 }

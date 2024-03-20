@@ -5,25 +5,17 @@ import 'package:tuple/tuple.dart';
 
 class ImageBlock extends BaseBlock {
   ImageBlock({
-    required int depth,
-    required int start,
-    required int end,
-    required List<String> inlineStyles,
-    required Map<String, dynamic> data,
-    required String text,
-    required List<String> entityTypes,
-    required String blockType,
-  }) : super(
-          depth: depth,
-          start: start,
-          end: end,
-          inlineStyles: inlineStyles,
-          data: data,
-          text: text,
-          entityTypes: entityTypes,
-          blockType: blockType,
-        );
+    required super.depth,
+    required super.start,
+    required super.end,
+    required super.inlineStyles,
+    required super.data,
+    required super.text,
+    required super.entityTypes,
+    required super.blockType,
+  });
 
+  @override
   ImageBlock copyWith({BaseBlock? block}) => ImageBlock(
         depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
@@ -56,10 +48,10 @@ class ImageComponent extends StatefulWidget {
   final String? url;
   final String? caption;
 
-  ImageComponent({this.url, this.caption});
+  const ImageComponent({super.key, this.url, this.caption});
 
   @override
-  _ImageComponentState createState() => _ImageComponentState();
+  State<ImageComponent> createState() => _ImageComponentState();
 }
 
 class _ImageComponentState extends State<ImageComponent> {
@@ -87,7 +79,7 @@ class _ImageComponentState extends State<ImageComponent> {
                       return Container(
                         height: 200,
                         color: Colors.grey.withOpacity(0.4),
-                        child: Center(
+                        child: const Center(
                           child: CupertinoActivityIndicator(),
                         ),
                       );
@@ -112,10 +104,10 @@ class ImageDetailView extends StatefulWidget {
   final String? url;
   final String? caption;
 
-  const ImageDetailView({Key? key, this.url, this.caption}) : super(key: key);
+  const ImageDetailView({super.key, this.url, this.caption});
 
   @override
-  _ImageDetailViewState createState() => _ImageDetailViewState();
+  State<ImageDetailView> createState() => _ImageDetailViewState();
 }
 
 class _ImageDetailViewState extends State<ImageDetailView> {
@@ -155,7 +147,7 @@ class _ImageDetailViewState extends State<ImageDetailView> {
                 child: InteractiveViewer(
                   transformationController: _transformationController,
                   panEnabled: false,
-                  boundaryMargin: EdgeInsets.all(100),
+                  boundaryMargin: const EdgeInsets.all(100),
                   minScale: 0.5,
                   maxScale: 3,
                   child: Image.network(
@@ -174,8 +166,8 @@ class _ImageDetailViewState extends State<ImageDetailView> {
                 child: Hero(
                   tag: Key("${widget.caption}"),
                   child: Text(
-                    "${widget.caption ?? ""}",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    widget.caption ?? "",
+                    style: const TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
               ),
@@ -184,7 +176,7 @@ class _ImageDetailViewState extends State<ImageDetailView> {
           Positioned(
             child: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.close),
+              icon: const Icon(Icons.close),
             ),
           )
         ],

@@ -4,25 +4,17 @@ import 'package:tuple/tuple.dart';
 
 class TextBlock extends BaseBlock {
   TextBlock({
-    required int depth,
-    required int start,
-    required int end,
-    required List<String> inlineStyles,
-    required Map<String, dynamic> data,
-    required String text,
-    required List<String> entityTypes,
-    required String blockType,
-  }) : super(
-          depth: depth,
-          start: start,
-          end: end,
-          inlineStyles: inlineStyles,
-          data: data,
-          text: text,
-          entityTypes: entityTypes,
-          blockType: blockType,
-        );
+    required super.depth,
+    required super.start,
+    required super.end,
+    required super.inlineStyles,
+    required super.data,
+    required super.text,
+    required super.entityTypes,
+    required super.blockType,
+  });
 
+  @override
   TextBlock copyWith({BaseBlock? block}) => TextBlock(
         depth: block?.depth ?? depth,
         start: block?.start ?? this.start,

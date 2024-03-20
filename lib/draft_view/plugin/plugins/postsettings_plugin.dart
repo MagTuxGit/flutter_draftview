@@ -1,3 +1,4 @@
+import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:draft_view/draft_view/block/blocks/settings_block.dart';
 import 'package:draft_view/draft_view/plugin/base_plugin.dart';
 
@@ -9,7 +10,7 @@ class PostSettingsPlugin extends BasePlugin {
   }
 
   @override
-  get entityRenderFn => {
+  Map<String, BaseBlock> get entityRenderFn => {
         "POST-SETTINGS": PostSettingsBlock(
           depth: 0,
           blockType: '',

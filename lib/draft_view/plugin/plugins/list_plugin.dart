@@ -6,10 +6,8 @@ class ListPlugin extends BasePlugin {
   ListTreeNode? currentLevel;
 
   @override
-  blockRenderFn(BaseBlock block, {bool shouldWrite = false}) {
-    if (currentLevel == null) {
-      currentLevel = root;
-    }
+  Map<String, BaseBlock> blockRenderFn(BaseBlock block, {bool shouldWrite = false}) {
+    currentLevel ??= root;
 
     if (shouldWrite) {
       if (block.blockType == "ordered-list-item") {

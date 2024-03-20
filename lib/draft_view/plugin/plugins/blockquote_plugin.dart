@@ -4,7 +4,7 @@ import 'package:draft_view/draft_view/plugin/base_plugin.dart';
 
 class BlockQuotePlugin extends BasePlugin {
   @override
-  blockRenderFn(BaseBlock block, {bool shouldWrite = false}) => {
+  Map<String, BaseBlock> blockRenderFn(BaseBlock block, {bool shouldWrite = false}) => {
         "blockquote": BlockQuoteBlock(
           depth: 0,
           blockType: '',

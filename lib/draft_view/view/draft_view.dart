@@ -13,16 +13,16 @@ class DraftView extends StatefulWidget {
   final Map<String, Tuple2<Color, Color?>>? highlightColorMap;
 
   const DraftView({
-    Key? key,
+    super.key,
     required this.rawDraftData,
     required this.plugins,
     this.baseStyle,
     this.textColorMap,
     this.highlightColorMap,
-  }) : super(key: key);
+  });
 
   @override
-  _DraftViewState createState() => _DraftViewState();
+  State<DraftView> createState() => _DraftViewState();
 }
 
 class _DraftViewState extends State<DraftView> {
