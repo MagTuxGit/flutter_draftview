@@ -334,12 +334,15 @@ class BaseBlock {
         context, baseStyle?.backgroundColor,
         highlightColorMap: highlightColorMap);
 
+    final _textColor = textColor(context, colors.item2 ?? baseStyle?.color,
+        textColorMap: textColorMap);
+
     return textStyle.copyWith(
       fontWeight: fontWeight,
       fontStyle: fontStyle,
       decoration: decoration(baseStyle?.decoration),
-      color: textColor(context, colors.item2 ?? baseStyle?.color,
-          textColorMap: textColorMap),
+      color: _textColor,
+      decorationColor: _textColor,
       backgroundColor: colors.item1,
     );
   }
