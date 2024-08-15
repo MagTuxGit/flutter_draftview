@@ -334,6 +334,7 @@ class BaseBlock {
         context, baseStyle?.backgroundColor,
         highlightColorMap: highlightColorMap);
 
+    //ignore: no_leading_underscores_for_local_identifiers
     final _textColor = textColor(context, colors.item2 ?? baseStyle?.color,
         textColorMap: textColorMap);
 
