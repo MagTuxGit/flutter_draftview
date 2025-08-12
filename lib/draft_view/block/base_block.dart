@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:draft_view/draft_view/plugin/base_plugin.dart';
 import 'package:draft_view/draft_view/string_helper.dart';
+import 'package:draft_view/draft_view/types.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import './extensions.dart';
@@ -86,9 +87,7 @@ class BaseBlock {
 
   /// Add inline style to the block
   List<String> addStyle(String? style) {
-    var copiedStyles = (jsonDecode(jsonEncode(this.inlineStyles)) as List)
-        .map((e) => e as String)
-        .toList();
+    var copiedStyles = (jsonDecode(jsonEncode(this.inlineStyles)) as List).map((e) => e as String).toList();
     if (style != null) {
       return copiedStyles..add(style);
     } else {
@@ -98,10 +97,7 @@ class BaseBlock {
 
   /// Add entity type to the block
   List<String> addEntityType(String? entity) {
-    List<String> copiedTypes =
-        (jsonDecode(jsonEncode(this.entityTypes)) as List)
-            .map((e) => e as String)
-            .toList();
+    List<String> copiedTypes = (jsonDecode(jsonEncode(this.entityTypes)) as List).map((e) => e as String).toList();
     if (entity != null) {
       return copiedTypes..add(entity);
     } else {
@@ -111,8 +107,7 @@ class BaseBlock {
 
   /// Add data to the block
   Map<String, dynamic> addData(Map<String, dynamic> data) {
-    Map<String, dynamic> copiedData =
-        jsonDecode(jsonEncode(this.data)) as Map<String, dynamic>;
+    Map<String, dynamic> copiedData = jsonDecode(jsonEncode(this.data)) as Map<String, dynamic>;
     return copiedData..addAll(data);
   }
 
@@ -262,8 +257,7 @@ class BaseBlock {
   }
 
   /// get text color
-  Color textColor(BuildContext context, Color? baseColor,
-      {Map<String, Color>? textColorMap}) {
+  Color textColor(BuildContext context, Color? baseColor, {TextColorResolver? textColorResolver}) {
     Color color = baseColor ?? Theme.of(context).textTheme.bodyLarge!.color!;
 
     for (String style in inlineStyles) {
@@ -271,7 +265,7 @@ class BaseBlock {
         color = HexColor.fromHex(style);
       }
 
-      final mappedColor = textColorMap?[style];
+      final mappedColor = textColorResolver?.call(style);
       if (mappedColor != null) {
         color = mappedColor;
       }
@@ -282,10 +276,8 @@ class BaseBlock {
 
   /// get highlight color
   Tuple2<Color, Color?> backgroundColor(BuildContext context, Color? baseColor,
-      {Map<String, Tuple2<Color, Color?>>? highlightColorMap}) {
-    Color backgroundColor = baseColor ??
-        Theme.of(context).textTheme.bodyLarge!.backgroundColor ??
-        Colors.transparent;
+      {HighlightColorResolver? highlightColorResolver}) {
+    Color backgroundColor = baseColor ?? Theme.of(context).textTheme.bodyLarge!.backgroundColor ?? Colors.transparent;
     Color? textColor;
 
     for (String style in inlineStyles) {
@@ -293,7 +285,7 @@ class BaseBlock {
         backgroundColor = HexColor.fromHex(style);
       }
 
-      final mappedColor = highlightColorMap?[style];
+      final mappedColor = highlightColorResolver?.call(style);
       if (mappedColor != null) {
         backgroundColor = mappedColor.item1;
         textColor = mappedColor.item2;
@@ -304,39 +296,32 @@ class BaseBlock {
   }
 
   /// Get fontweight for each block based on their [inline styles]
-  FontWeight? get fontWeight =>
-      this.inlineStyles.contains("BOLD") ? FontWeight.bold : null;
+  FontWeight? get fontWeight => this.inlineStyles.contains("BOLD") ? FontWeight.bold : null;
 
   /// Get fontstyle for each block based on their [inline styles]
-  FontStyle? get fontStyle =>
-      this.inlineStyles.contains("ITALIC") ? FontStyle.italic : null;
+  FontStyle? get fontStyle => this.inlineStyles.contains("ITALIC") ? FontStyle.italic : null;
 
   /// Get decoration for each block based on their [inline styles]
   TextDecoration decoration(TextDecoration? baseDecoration) {
     TextDecoration decoration = baseDecoration ?? TextDecoration.none;
     if (inlineStyles.contains("UNDERLINE")) {
-      decoration =
-          TextDecoration.combine([decoration, TextDecoration.underline]);
+      decoration = TextDecoration.combine([decoration, TextDecoration.underline]);
     }
     if (inlineStyles.contains("STRIKETHROUGH")) {
-      decoration =
-          TextDecoration.combine([decoration, TextDecoration.lineThrough]);
+      decoration = TextDecoration.combine([decoration, TextDecoration.lineThrough]);
     }
     return decoration;
   }
 
   /// Render style based on the block's type and inline styles
   TextStyle renderStyle(BuildContext context, TextStyle? baseStyle,
-      {Map<String, Color>? textColorMap,
-      Map<String, Tuple2<Color, Color?>>? highlightColorMap}) {
+      {TextColorResolver? textColorResolver, HighlightColorResolver? highlightColorResolver}) {
     TextStyle textStyle = baseStyle ?? Theme.of(context).textTheme.bodyLarge!;
-    Tuple2<Color, Color?> colors = backgroundColor(
-        context, baseStyle?.backgroundColor,
-        highlightColorMap: highlightColorMap);
+    Tuple2<Color, Color?> colors =
+        backgroundColor(context, baseStyle?.backgroundColor, highlightColorResolver: highlightColorResolver);
 
     //ignore: no_leading_underscores_for_local_identifiers
-    final _textColor = textColor(context, colors.item2 ?? baseStyle?.color,
-        textColorMap: textColorMap);
+    final _textColor = textColor(context, colors.item2 ?? baseStyle?.color, textColorResolver: textColorResolver);
 
     return textStyle.copyWith(
       fontWeight: fontWeight,
@@ -351,17 +336,15 @@ class BaseBlock {
   /// Render the current block
   ///
   /// @param [children] List of children
-  InlineSpan render(
-    BuildContext context, {
-    List<InlineSpan>? children,
-    TextStyle? baseStyle,
-    Map<String, Color>? textColorMap,
-    Map<String, Tuple2<Color, Color?>>? highlightColorMap,
-  }) {
+  InlineSpan render(BuildContext context,
+      {List<InlineSpan>? children,
+      TextStyle? baseStyle,
+      TextColorResolver? textColorResolver,
+      HighlightColorResolver? highlightColorResolver}) {
     return TextSpan(
       text: this.textContent,
       style: renderStyle(context, baseStyle,
-          textColorMap: textColorMap, highlightColorMap: highlightColorMap),
+          textColorResolver: textColorResolver, highlightColorResolver: highlightColorResolver),
       children: children,
     );
   }

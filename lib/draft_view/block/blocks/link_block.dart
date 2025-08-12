@@ -1,9 +1,9 @@
 import 'package:draft_view/draft_view/block/base_block.dart';
+import 'package:draft_view/draft_view/types.dart';
 import 'package:draft_view/draft_view/uri_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 
 class LinkBlock extends BaseBlock {
   LinkBlock({
@@ -35,9 +35,12 @@ class LinkBlock extends BaseBlock {
   // TextDecoration get decoration => TextDecoration.underline;
 
   @override
-  Color textColor(context, Color? baseColor,
-          {Map<String, Color>? textColorMap,
-          Map<String, Color>? highlightColorMap}) =>
+  Color textColor(
+    context,
+    Color? baseColor, {
+    TextColorResolver? textColorResolver,
+    HighlightColorResolver? highlightColorResolver,
+  }) =>
       const Color(0xFF175CFF);
 
   @override
@@ -45,8 +48,8 @@ class LinkBlock extends BaseBlock {
     BuildContext context, {
     List<InlineSpan>? children,
     TextStyle? baseStyle,
-    Map<String, Color>? textColorMap,
-    Map<String, Tuple2<Color, Color?>>? highlightColorMap,
+    TextColorResolver? textColorResolver,
+    HighlightColorResolver? highlightColorResolver,
   }) {
     GestureRecognizer? recognizer;
 
@@ -95,8 +98,7 @@ class LinkCard extends StatelessWidget {
   final String? summary;
   final String? image;
 
-  const LinkCard(
-      {super.key, this.title, required this.link, this.summary, this.image});
+  const LinkCard({super.key, this.title, required this.link, this.summary, this.image});
 
   @override
   Widget build(BuildContext context) {

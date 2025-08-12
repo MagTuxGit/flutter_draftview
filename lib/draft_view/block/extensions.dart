@@ -10,9 +10,13 @@ extension HexColor on Color {
   }
 
   /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
-  String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'
-      '${alpha.toRadixString(16).padLeft(2, '0')}'
-      '${red.toRadixString(16).padLeft(2, '0')}'
-      '${green.toRadixString(16).padLeft(2, '0')}'
-      '${blue.toRadixString(16).padLeft(2, '0')}';
+  String toHex({bool leadingHashSign = true, bool withAlpha = true}) => '${leadingHashSign ? '#' : ''}'
+      '${withAlpha ? _floatToInt8(a).toRadixString(16).padLeft(2, '0') : ''}'
+      '${_floatToInt8(r).toRadixString(16).padLeft(2, '0')}'
+      '${_floatToInt8(g).toRadixString(16).padLeft(2, '0')}'
+      '${_floatToInt8(b).toRadixString(16).padLeft(2, '0')}';
+
+  static int _floatToInt8(double x) {
+    return (x * 255.0).round() & 0xff;
+  }
 }

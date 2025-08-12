@@ -2,23 +2,23 @@ import 'package:collection/collection.dart';
 import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:draft_view/draft_view/converter/converter.dart';
 import 'package:draft_view/draft_view/plugin/base_plugin.dart';
+import 'package:draft_view/draft_view/types.dart';
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 
 class DraftView extends StatefulWidget {
   final Map<String, dynamic> rawDraftData;
   final List<BasePlugin> plugins;
   final TextStyle? baseStyle;
-  final Map<String, Color>? textColorMap;
-  final Map<String, Tuple2<Color, Color?>>? highlightColorMap;
+  final TextColorResolver? textColorResolver;
+  final HighlightColorResolver? highlightColorResolver;
 
   const DraftView({
     super.key,
     required this.rawDraftData,
     required this.plugins,
     this.baseStyle,
-    this.textColorMap,
-    this.highlightColorMap,
+    this.textColorResolver,
+    this.highlightColorResolver,
   });
 
   @override
@@ -63,12 +63,12 @@ class _DraftViewState extends State<DraftView> {
           children: curBlock.children
               ?.map((e) => e.render(context,
                   baseStyle: widget.baseStyle,
-                  textColorMap: widget.textColorMap,
-                  highlightColorMap: widget.highlightColorMap))
+                  textColorResolver: widget.textColorResolver,
+                  highlightColorResolver: widget.highlightColorResolver))
               .toList(),
           baseStyle: widget.baseStyle,
-          textColorMap: widget.textColorMap,
-          highlightColorMap: widget.highlightColorMap);
+          textColorResolver: widget.textColorResolver,
+          highlightColorResolver: widget.highlightColorResolver);
       spans.add(span);
 
       i++;

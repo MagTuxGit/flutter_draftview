@@ -1,7 +1,7 @@
 import 'package:draft_view/draft_view/block/base_block.dart';
+import 'package:draft_view/draft_view/types.dart';
 import 'package:draft_view/draft_view/uri_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 
 extension on Duration {
   String toAudioString() {
@@ -50,8 +50,8 @@ class AudioBlock extends BaseBlock {
     BuildContext context, {
     List<InlineSpan>? children,
     TextStyle? baseStyle,
-    Map<String, Color>? textColorMap,
-    Map<String, Tuple2<Color, Color?>>? highlightColorMap,
+    TextColorResolver? textColorResolver,
+    HighlightColorResolver? highlightColorResolver,
   }) {
     return WidgetSpan(
       child: AudioComponent(
