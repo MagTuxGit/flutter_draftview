@@ -167,29 +167,32 @@ class _AudioComponentState extends State<AudioComponent> {
                   ),
                   RichText(
                     text: TextSpan(
-                        text: "Audio src: ",
-                        style: Theme.of(context).textTheme.bodySmall,
-                        children: [
-                          WidgetSpan(
-                            child: InkWell(
-                              onTap: () {
+                      text: "Audio src: ",
+                      style: Theme.of(context).textTheme.bodySmall,
+                      children: [
+                        WidgetSpan(
+                          child: InkWell(
+                            onTap: () {
+                              final handler = LinkHandler.of(context);
+                              if (handler != null) {
+                                handler.onLinkClicked(widget.url);
+                              } else {
                                 UriHelper.launchUrl(widget.url);
-                              },
-                              child: Text(
-                                widget.url,
-                                maxLines: 1,
-                                overflow: TextOverflow.clip,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                      color: Colors.blue,
-                                      decoration: TextDecoration.underline,
-                                    ),
-                              ),
+                              }
+                            },
+                            child: Text(
+                              widget.url,
+                              maxLines: 1,
+                              overflow: TextOverflow.clip,
+                              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline,
+                                  ),
                             ),
-                          )
-                        ]),
+                          ),
+                        )
+                      ],
+                    ),
                     textScaler: MediaQuery.textScalerOf(context),
                   ),
                 ],

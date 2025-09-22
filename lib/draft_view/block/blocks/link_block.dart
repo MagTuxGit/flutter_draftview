@@ -64,7 +64,13 @@ class LinkBlock extends BaseBlock {
             //     title: data['url'],
             //   ),
             // );
-            UriHelper.launchUrl(data['url']);
+            final url = data['url'];
+            final handler = LinkHandler.of(context);
+            if (handler != null) {
+              handler.onLinkClicked(url);
+            } else {
+              UriHelper.launchUrl(url);
+            }
           };
       } else {
         recognizer = TapGestureRecognizer()
@@ -78,7 +84,13 @@ class LinkBlock extends BaseBlock {
             //     summary: data['url']['summary'],
             //   ),
             // );
-            UriHelper.launchUrl(data['url']['link']);
+            final url = data['url']['link'];
+            final handler = LinkHandler.of(context);
+            if (handler != null) {
+              handler.onLinkClicked(url);
+            } else {
+              UriHelper.launchUrl(url);
+            }
           };
       }
     }
@@ -132,7 +144,12 @@ class LinkCard extends StatelessWidget {
                   tooltip: "Open in browser",
                   icon: const Icon(Icons.launch),
                   onPressed: () {
-                    UriHelper.launchUrl(link);
+                    final handler = LinkHandler.of(context);
+                    if (handler != null) {
+                      handler.onLinkClicked(link);
+                    } else {
+                      UriHelper.launchUrl(link);
+                    }
                   },
                 ),
               ),

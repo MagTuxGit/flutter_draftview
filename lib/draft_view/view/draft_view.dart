@@ -3,6 +3,7 @@ import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:draft_view/draft_view/converter/converter.dart';
 import 'package:draft_view/draft_view/plugin/base_plugin.dart';
 import 'package:draft_view/draft_view/types.dart';
+import 'package:draft_view/draft_view/uri_helper.dart';
 import 'package:flutter/material.dart';
 
 class DraftView extends StatefulWidget {
@@ -11,6 +12,27 @@ class DraftView extends StatefulWidget {
   final TextStyle? baseStyle;
   final TextColorResolver? textColorResolver;
   final HighlightColorResolver? highlightColorResolver;
+
+  static Widget withUrlHandler({
+    Key? key,
+    required Map<String, dynamic> rawDraftData,
+    required List<BasePlugin> plugins,
+    TextStyle? baseStyle,
+    TextColorResolver? textColorResolver,
+    HighlightColorResolver? highlightColorResolver,
+    required void Function(String url) onLinkClicked,
+  }) =>
+      LinkHandler(
+        onLinkClicked: onLinkClicked,
+        child: DraftView(
+          key: key,
+          rawDraftData: rawDraftData,
+          plugins: plugins,
+          baseStyle: baseStyle,
+          textColorResolver: textColorResolver,
+          highlightColorResolver: highlightColorResolver,
+        ),
+      );
 
   const DraftView({
     super.key,
