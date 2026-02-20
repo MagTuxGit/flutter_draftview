@@ -78,7 +78,7 @@ class _ImageComponentState extends State<ImageComponent> {
                       if (loadingProgress == null) return child;
                       return Container(
                         height: 200,
-                        color: Colors.grey.withOpacity(0.4),
+                        color: Colors.grey.withValues(alpha: 0.4),
                         child: const Center(
                           child: CupertinoActivityIndicator(),
                         ),
@@ -88,7 +88,7 @@ class _ImageComponentState extends State<ImageComponent> {
                 )
               : Container(
                   height: 200,
-                  color: Colors.grey.withOpacity(0.4),
+                  color: Colors.grey.withValues(alpha: 0.4),
                 ),
         ),
         Hero(
@@ -111,8 +111,7 @@ class ImageDetailView extends StatefulWidget {
 }
 
 class _ImageDetailViewState extends State<ImageDetailView> {
-  final TransformationController _transformationController =
-      TransformationController();
+  final TransformationController _transformationController = TransformationController();
 
   TapDownDetails? _doubleTapDetails;
 
@@ -128,8 +127,8 @@ class _ImageDetailViewState extends State<ImageDetailView> {
         final position = _doubleTapDetails!.localPosition;
         // For a 3x zoom
         _transformationController.value = Matrix4.identity()
-          ..translate(-position.dx, -position.dy)
-          ..scale(2.0);
+          ..setTranslationRaw(-position.dx, -position.dy, 0.0)
+          ..scaleByDouble(2.0, 2.0, 1.0, 1.0);
       }
     }
   }
