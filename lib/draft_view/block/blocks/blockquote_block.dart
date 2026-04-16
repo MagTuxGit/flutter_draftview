@@ -35,8 +35,9 @@ class BlockQuoteBlock extends BaseBlock {
     TextStyle? baseStyle,
     TextColorResolver? textColorResolver,
     HighlightColorResolver? highlightColorResolver,
+    String? italicFontFamily,
   }) {
-    var style = renderStyle(context, baseStyle);
+    var style = renderStyle(context, baseStyle, italicFontFamily: italicFontFamily);
     var text = children?.isEmpty == true ? textContent : null;
 
     return WidgetSpan(

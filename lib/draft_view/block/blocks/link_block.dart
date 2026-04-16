@@ -50,6 +50,7 @@ class LinkBlock extends BaseBlock {
     TextStyle? baseStyle,
     TextColorResolver? textColorResolver,
     HighlightColorResolver? highlightColorResolver,
+    String? italicFontFamily,
   }) {
     GestureRecognizer? recognizer;
 
@@ -99,7 +100,7 @@ class LinkBlock extends BaseBlock {
       recognizer: recognizer,
       text: textContent,
       children: children,
-      style: renderStyle(context, baseStyle),
+      style: renderStyle(context, baseStyle, italicFontFamily: italicFontFamily),
     );
   }
 }

@@ -52,6 +52,7 @@ class AudioBlock extends BaseBlock {
     TextStyle? baseStyle,
     TextColorResolver? textColorResolver,
     HighlightColorResolver? highlightColorResolver,
+    String? italicFontFamily,
   }) {
     return WidgetSpan(
       child: AudioComponent(

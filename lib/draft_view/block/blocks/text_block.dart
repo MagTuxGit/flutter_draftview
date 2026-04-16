@@ -47,7 +47,8 @@ class NewlineBlock extends BaseBlock {
     TextStyle? baseStyle,
     TextColorResolver? textColorResolver,
     HighlightColorResolver? highlightColorResolver,
+    String? italicFontFamily,
   }) {
-    return TextSpan(text: "\n", style: renderStyle(context, baseStyle));
+    return TextSpan(text: "\n", style: renderStyle(context, baseStyle, italicFontFamily: italicFontFamily));
   }
 }
