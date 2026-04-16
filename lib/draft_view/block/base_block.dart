@@ -315,7 +315,9 @@ class BaseBlock {
 
   /// Render style based on the block's type and inline styles
   TextStyle renderStyle(BuildContext context, TextStyle? baseStyle,
-      {TextColorResolver? textColorResolver, HighlightColorResolver? highlightColorResolver}) {
+      {TextColorResolver? textColorResolver,
+      HighlightColorResolver? highlightColorResolver,
+      String? italicFontFamily}) {
     TextStyle textStyle = baseStyle ?? Theme.of(context).textTheme.bodyLarge!;
     Tuple2<Color, Color?> colors =
         backgroundColor(context, baseStyle?.backgroundColor, highlightColorResolver: highlightColorResolver);
@@ -326,6 +328,7 @@ class BaseBlock {
     return textStyle.copyWith(
       fontWeight: fontWeight,
       fontStyle: fontStyle,
+      fontFamily: fontStyle == FontStyle.italic ? italicFontFamily : null,
       decoration: decoration(baseStyle?.decoration),
       color: _textColor,
       decorationColor: _textColor,
@@ -340,11 +343,14 @@ class BaseBlock {
       {List<InlineSpan>? children,
       TextStyle? baseStyle,
       TextColorResolver? textColorResolver,
-      HighlightColorResolver? highlightColorResolver}) {
+      HighlightColorResolver? highlightColorResolver,
+      String? italicFontFamily}) {
     return TextSpan(
       text: this.textContent,
       style: renderStyle(context, baseStyle,
-          textColorResolver: textColorResolver, highlightColorResolver: highlightColorResolver),
+          textColorResolver: textColorResolver,
+          highlightColorResolver: highlightColorResolver,
+          italicFontFamily: italicFontFamily),
       children: children,
     );
   }

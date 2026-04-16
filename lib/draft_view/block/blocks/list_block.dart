@@ -53,11 +53,12 @@ class ListBlock extends BaseBlock {
     TextStyle? baseStyle,
     TextColorResolver? textColorResolver,
     HighlightColorResolver? highlightColorResolver,
+    String? italicFontFamily,
   }) {
     return TextSpan(
       text:
           "${getDepthSpacing()}${isOrderedList ? "$order." : "-"} $textContent\n",
-      style: renderStyle(context, baseStyle),
+      style: renderStyle(context, baseStyle, italicFontFamily: italicFontFamily),
     );
   }
 }

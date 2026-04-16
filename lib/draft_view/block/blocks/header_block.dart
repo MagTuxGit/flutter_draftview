@@ -39,14 +39,16 @@ class HeaderBlock extends BaseBlock {
     TextStyle? baseStyle, {
     TextColorResolver? textColorResolver,
     HighlightColorResolver? highlightColorResolver,
+    String? italicFontFamily,
   }) {
-    var prevStyle = super.renderStyle(context, baseStyle);
+    var prevStyle = super.renderStyle(context, baseStyle, italicFontFamily: italicFontFamily);
 
     switch (level) {
       case 1:
         var textStyle = Theme.of(context).textTheme.displayLarge!.copyWith(
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
+              fontFamily: prevStyle.fontFamily,
               decoration: prevStyle.decoration,
               color: textColor(context, baseStyle?.color),
             );
@@ -56,6 +58,7 @@ class HeaderBlock extends BaseBlock {
         var textStyle = Theme.of(context).textTheme.displayMedium!.copyWith(
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
+              fontFamily: prevStyle.fontFamily,
               decoration: prevStyle.decoration,
               color: textColor(context, baseStyle?.color),
             );
@@ -66,6 +69,7 @@ class HeaderBlock extends BaseBlock {
         var textStyle = Theme.of(context).textTheme.displaySmall!.copyWith(
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
+              fontFamily: prevStyle.fontFamily,
               decoration: prevStyle.decoration,
               color: textColor(context, baseStyle?.color),
             );
@@ -74,6 +78,7 @@ class HeaderBlock extends BaseBlock {
         var textStyle = Theme.of(context).textTheme.headlineMedium!.copyWith(
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
+              fontFamily: prevStyle.fontFamily,
               decoration: prevStyle.decoration,
               color: textColor(context, baseStyle?.color),
             );
@@ -82,6 +87,7 @@ class HeaderBlock extends BaseBlock {
         var textStyle = Theme.of(context).textTheme.headlineSmall!.copyWith(
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
+              fontFamily: prevStyle.fontFamily,
               decoration: prevStyle.decoration,
               color: textColor(context, baseStyle?.color),
             );
@@ -90,6 +96,7 @@ class HeaderBlock extends BaseBlock {
         var textStyle = Theme.of(context).textTheme.titleLarge!.copyWith(
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
+              fontFamily: prevStyle.fontFamily,
               decoration: prevStyle.decoration,
               color: textColor(context, baseStyle?.color),
             );
@@ -104,7 +111,8 @@ class HeaderBlock extends BaseBlock {
     TextStyle? baseStyle,
     TextColorResolver? textColorResolver,
     HighlightColorResolver? highlightColorResolver,
+    String? italicFontFamily,
   }) {
-    return TextSpan(text: textContent, style: renderStyle(context, baseStyle));
+    return TextSpan(text: textContent, style: renderStyle(context, baseStyle, italicFontFamily: italicFontFamily));
   }
 }

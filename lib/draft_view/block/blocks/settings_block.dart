@@ -150,9 +150,10 @@ class PostSettingsBlock extends BaseBlock {
     TextStyle? baseStyle,
     TextColorResolver? textColorResolver,
     HighlightColorResolver? highlightColorResolver,
+    String? italicFontFamily,
   }) {
     late DetailSettings detailSettings;
-    var textStyle = renderStyle(context, baseStyle).copyWith(
+    var textStyle = renderStyle(context, baseStyle, italicFontFamily: italicFontFamily).copyWith(
       color: Colors.orange,
     );
 

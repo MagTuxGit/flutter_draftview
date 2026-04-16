@@ -12,6 +12,7 @@ class DraftView extends StatefulWidget {
   final TextStyle? baseStyle;
   final TextColorResolver? textColorResolver;
   final HighlightColorResolver? highlightColorResolver;
+  final String? italicFontFamily;
 
   static Widget withUrlHandler({
     Key? key,
@@ -20,6 +21,7 @@ class DraftView extends StatefulWidget {
     TextStyle? baseStyle,
     TextColorResolver? textColorResolver,
     HighlightColorResolver? highlightColorResolver,
+    String? italicFontFamily,
     required void Function(String url) onLinkClicked,
   }) =>
       LinkHandler(
@@ -31,6 +33,7 @@ class DraftView extends StatefulWidget {
           baseStyle: baseStyle,
           textColorResolver: textColorResolver,
           highlightColorResolver: highlightColorResolver,
+          italicFontFamily: italicFontFamily,
         ),
       );
 
@@ -41,6 +44,7 @@ class DraftView extends StatefulWidget {
     this.baseStyle,
     this.textColorResolver,
     this.highlightColorResolver,
+    this.italicFontFamily,
   });
 
   @override
@@ -61,7 +65,8 @@ class _DraftViewState extends State<DraftView> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.plugins != widget.plugins ||
         oldWidget.rawDraftData != widget.rawDraftData ||
-        oldWidget.baseStyle != widget.baseStyle) {
+        oldWidget.baseStyle != widget.baseStyle ||
+        oldWidget.italicFontFamily != widget.italicFontFamily) {
       setState(() {
         blocks = _convertToBlocks();
       });
@@ -86,11 +91,13 @@ class _DraftViewState extends State<DraftView> {
               ?.map((e) => e.render(context,
                   baseStyle: widget.baseStyle,
                   textColorResolver: widget.textColorResolver,
-                  highlightColorResolver: widget.highlightColorResolver))
+                  highlightColorResolver: widget.highlightColorResolver,
+                  italicFontFamily: widget.italicFontFamily))
               .toList(),
           baseStyle: widget.baseStyle,
           textColorResolver: widget.textColorResolver,
-          highlightColorResolver: widget.highlightColorResolver);
+          highlightColorResolver: widget.highlightColorResolver,
+          italicFontFamily: widget.italicFontFamily);
       spans.add(span);
 
       i++;
