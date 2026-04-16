@@ -130,7 +130,7 @@ class LinkCard extends StatelessWidget {
                           if (loadingProgress == null) return child;
                           return Container(
                             height: 50,
-                            color: Colors.grey.withOpacity(0.4),
+                            color: Colors.grey.withValues(alpha: 0.4),
                             child: const Center(
                               child: CupertinoActivityIndicator(),
                             ),
